@@ -5,7 +5,7 @@ nav:
     order: 2
 ---
 
-# FormItem 表单组件
+# FormRender 表单组件
 
 ## 代码演示
 
