@@ -3,18 +3,53 @@ import { FormItem } from "light-ui";
 import { useForm } from 'form-render';
 import { Button } from 'antd';
 
+const treeData = [
+  {
+    value: 'parent 1',
+    title: 'parent 1',
+    children: [
+      {
+        value: 'parent 1-0',
+        title: 'parent 1-0',
+        children: [
+          {
+            value: 'leaf1',
+            title: 'leaf1',
+          },
+          {
+            value: 'leaf2',
+            title: 'leaf2',
+          },
+        ],
+      },
+      {
+        value: 'parent 1-1',
+        title: 'parent 1-1',
+        children: [
+          {
+            value: 'leaf3',
+            title: <b style={{ color: '#08c' }}>leaf3</b>,
+          },
+        ],
+      },
+    ],
+  },
+];
+
 const Demo = (props) => {
   const form = useForm();
-  const formData = {
-    "address": "baidua",
-    "count": 60,
-    "select": 1,
-    "remark": "ceshiceshiceshissssss",
-    "radio": 1,
-    "checkbox": [
+  let formData = {
+    address: "baidua",
+    count: 60,
+    remark: "ceshiceshiceshissssss",
+    rows: 2,
+    radio: 1,
+    select: 1,
+    checkbox: [
         2,
         3
-    ]
+    ],
+    treeSelect: 'leaf1'
   };
   const schema = {
     properties: {
@@ -31,7 +66,13 @@ const Demo = (props) => {
         },
         addonBefore: "https://",
         addonAfter: ".com",
-        "readOnlyWidget": "input",
+        readOnlyWidget: "input",
+        rules: [
+          {
+            pattern: '^[A-Za-z0-9]+$',
+            message: '只允许填写英文字母和数字',
+          },
+        ],
       },
       count: {
         title: '数量',
@@ -41,8 +82,24 @@ const Demo = (props) => {
       select: {
         title: '单选',
         type: 'number',
-        enum: [1, 2, 3],
-        enumNames: ['选项1', '选项2', '选项3'],
+        widget: 'select',
+        itemprops: {
+          allowClear: true,
+          options: [
+            {
+              label: '选项一',
+              value: 1,
+            },
+            {
+              label: '选项二',
+              value: 2,
+            },
+            {
+              label: '选项三',
+              value: 3,
+            },
+          ]
+        },
         required: true,
         width: '100%',
       },
@@ -51,7 +108,6 @@ const Demo = (props) => {
         type: 'string',
         widget: 'textArea',
         dependencies: ['rows'],
-        default: 'ceshiceshiceshi',
         itemprops: {
           maxLength: 100,
         },
@@ -84,9 +140,8 @@ const Demo = (props) => {
         }
       },
       checkbox: {
-        title: '多选框',
         type: 'any',
-        widget: 'checkbox',
+        title: '多选框',
         itemprops: {
           options: [
             {
@@ -102,14 +157,71 @@ const Demo = (props) => {
               value: 3,
             },
           ]
-        }
-      }
+        },
+        widget: 'CustomCheckBox'
+      },
+      treeSelect: {
+        type: 'any',
+        title: '树下拉',
+        itemprops: {
+          treeData,
+        },
+        widget: 'treeSelect'
+      },
+      cascade: {
+        type: 'any',
+        title: '级联选择',
+        itemprops: {
+          options: [
+            {
+              value: 'zhejiang',
+              label: 'Zhejiang',
+              children: [
+                {
+                  value: 'hangzhou',
+                  label: 'Hangzhou',
+                  children: [
+                    {
+                      value: 'xihu',
+                      label: 'West Lake',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              value: 'jiangsu',
+              label: 'Jiangsu',
+              children: [
+                {
+                  value: 'nanjing',
+                  label: 'Nanjing',
+                  children: [
+                    {
+                      value: 'zhonghuamen',
+                      label: 'Zhong Hua Men',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        widget: 'cascade'
+      },
+      img: {
+        type: 'string',
+        format: 'image',
+      },
     },
   }
 
   const watch = {
     address: val => {
       console.log('address:', val);
+    },
+    select: val => {
+      form?.validateFields()
     },
     radio: val => {
       console.log('radio:', val);
@@ -118,7 +230,11 @@ const Demo = (props) => {
 
   const onFinish = (data, errors) => {
     if (errors?.length > 0) return;
-    console.log('formData:', data);
+    formData = {
+      ...formData,
+      ...data,
+    }
+    console.log('formData:', formData);
     console.log('errors:', errors);
   }
   return (

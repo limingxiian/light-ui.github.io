@@ -1,1 +1,9 @@
+import 'antd/lib/cascader/style';
+import 'antd/lib/checkbox/style';
+import 'antd/lib/input/style';
+import 'antd/lib/input-number/style';
+import 'antd/lib/radio/style';
+import 'antd/lib/select/style';
+import 'antd/lib/space/style';
+import 'antd/lib/tree-select/style';
 import './index.less';
