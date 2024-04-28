@@ -1,12 +1,17 @@
 import React, { useRef, useState } from 'react';
-import { Button, Cascader, Checkbox, Input, InputNumber, Modal, Radio, Select, Space, TreeSelect, Upload, message } from 'antd';
+import { Button, Cascader, Checkbox, ConfigProvider, DatePicker, Input, InputNumber, Modal, Radio, Select, Space, TimePicker, TreeSelect, Upload, message } from 'antd';
 import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import zhCN from 'antd/es/locale/zh_CN';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
 import FormRender from 'form-render';
 import { isEmpty } from "lodash";
 import classNames from 'classnames';
 import FileType from "../utils/fileConfig.json";
 
 import './style';
+
+dayjs.locale('zh-cn');
 
 const { TextArea } = Input;
 
@@ -294,6 +299,38 @@ export const useRenderFileUpload = (props) => {
   </div>
 }
 
+export const useRenderDatePicker = (props) => {
+  const { itemprops = {}, value, ...rest } = props;
+  const { style = {} } = itemprops;
+  return <>
+    <DatePicker
+      style={{ width: '100%', ...style }}
+      {...rest}
+      {...itemprops}
+    />
+  </>
+}
+
+export const useRenderRangePicker = function (props) {
+  const { itemprops = {}, value, ...rest } = props;
+  const { style = {} } = itemprops;
+  return <DatePicker.RangePicker
+    style={{ width: '100%', ...style }}
+    {...rest}
+    {...itemprops}
+  />;
+};
+
+export const useRenderTimePicker = (props) => {
+  const { itemprops = {}, value, ...rest } = props;
+  const { style = {} } = itemprops;
+  return <TimePicker
+    style={{ width: '100%', ...style }}
+    {...rest}
+    {...itemprops}
+  />
+}
+
 const Item = props => {
   const { item = {} } = props;
 
@@ -317,13 +354,19 @@ const Item = props => {
     cascade: useRenderCascade, // 级联下拉
     imgUpload: useRenderImgUpload, // 图片上传
     fileUpload: useRenderFileUpload, // 文件上传
+
+    datePicker: useRenderDatePicker, // 日期选择器 picker：week-周，month-月份，quarter-季度，year-年份
+    rangePicker: useRenderRangePicker, // 日期范围选择
+    timePicker: useRenderTimePicker, // 时间选择器
   };
   return (
-    <FormRender
-      widgets={widgets}
-      schema={schema}
-      {...props}
-    />
+    <ConfigProvider locale={zhCN}>
+      <FormRender
+        widgets={widgets}
+        schema={schema}
+        {...props}
+      />
+    </ConfigProvider>
   );
 };
 

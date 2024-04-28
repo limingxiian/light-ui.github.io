@@ -235,7 +235,61 @@ const Demo = (props) => {
           },
         },
         widget: 'fileUpload',
-      }
+      },
+      day: {
+        type: 'any',
+        title: '日期',
+        itemprops: {},
+        widget: 'datePicker',
+      },
+      week: {
+        type: 'any',
+        title: '周',
+        itemprops: {
+          picker: 'week',
+        },
+        widget: 'datePicker',
+      },
+      month: {
+        type: 'any',
+        title: '月份',
+        itemprops: {
+          picker: 'month',
+        },
+        widget: 'datePicker',
+      },
+      quarter: {
+        type: 'any',
+        title: '季度',
+        itemprops: {
+          picker: 'quarter',
+        },
+        widget: 'datePicker',
+      },
+      year: {
+        type: 'any',
+        title: '年份',
+        itemprops: {
+          picker: 'year',
+        },
+        widget: 'datePicker',
+      },
+      time: {
+        type: 'any',
+        title: '时间',
+        description: '时-分-秒',
+        itemprops: {},
+        widget: 'timePicker',
+      },
+      range: {
+        type: 'any',
+        title: '时间范围',
+        description: '开始时间-结束时间',
+        itemprops: {
+          showTime: true,
+        },
+        widget: 'rangePicker',
+      },
     },
   }
 

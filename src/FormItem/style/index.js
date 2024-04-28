@@ -1,3 +1,4 @@
+import 'antd/lib/config-provider/style';
 import 'antd/lib/cascader/style';
 import 'antd/lib/checkbox/style';
 import 'antd/lib/input/style';
@@ -10,4 +11,6 @@ import 'antd/lib/upload/style';
 import 'antd/lib/modal/style';
 import 'antd/lib/message/style';
 import 'antd/lib/button/style';
+import 'antd/lib/date-picker/style';
+import 'antd/lib/time-picker/style';
 import './index.less';
