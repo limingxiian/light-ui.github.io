@@ -171,7 +171,7 @@ export const useRenderCascade = (props) => {
 
 export const useRenderImgUpload = (props) => {
   const { readOnly, itemprops = {}, value, ...rest } = props;
-  const { maxLength, maxSize, type = [], handlePreview, handleChange } = itemprops;
+  const { maxLength, maxSize, type = [], parseFileFunc, handlePreview, handleChange } = itemprops;
   const uploadImg = useRef();
   const [imgList, setImgList] = useState([]);
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -202,6 +202,9 @@ export const useRenderImgUpload = (props) => {
     setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
   };
   const onChange = ({ fileList: newFileList }) => {
+    if (parseFileFunc) {
+      newFileList = parseFileFunc(newFileList);
+    }
     setImgList(newFileList);
     handleChange && handleChange(newFileList);
 
@@ -249,7 +252,7 @@ export const useRenderImgUpload = (props) => {
 
 export const useRenderFileUpload = (props) => {
   const { readOnly, itemprops = {}, value, ...rest } = props;
-  const { maxLength, maxSize, type = [], handlePreview, handleChange } = itemprops;
+  const { maxLength, maxSize, type = [], parseFileFunc, handleChange } = itemprops;
   const uploadFile = useRef();
   const [fileList, setFileList] = useState([]);
 
@@ -267,6 +270,9 @@ export const useRenderFileUpload = (props) => {
   };
 
   const onChange = ({ file, fileList: newFileList }) => {
+    if (parseFileFunc) {
+      newFileList = parseFileFunc(newFileList);
+    }
     setFileList(newFileList);
     handleChange && handleChange(newFileList);
   };
