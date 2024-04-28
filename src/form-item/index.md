@@ -2,7 +2,12 @@
 order: 1
 nav:
     title: 组件
+    path: /src
     order: 2
+group:
+    title: 表单
+    path: /basic
+    order: 1
 ---
 
 # FormRender 表单组件
