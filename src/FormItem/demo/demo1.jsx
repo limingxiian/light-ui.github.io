@@ -209,10 +209,33 @@ const Demo = (props) => {
         },
         widget: 'cascade'
       },
-      img: {
-        type: 'string',
-        format: 'image',
+      pic: {
+        type: 'any',
+        title: '图片选择',
+        itemprops: {
+          maxLength: 5,
+          type: ['png', 'jpg', 'pnz'],
+          handlePreview: (data) => {
+            console.log('data1:', data);
+          },
+          handleChange: (data) => {
+            console.log('data2:', data);
+          },
+        },
+        widget: 'imgUpload',
       },
+      file: {
+        type: 'any',
+        title: '文件选择',
+        itemprops: {
+          maxLength: 5,
+          type: ['docx', 'doc', 'pdf'],
+          handleChange: (data) => {
+            console.log('data2:', data);
+          },
+        },
+        widget: 'fileUpload',
+      }
     },
   }
 

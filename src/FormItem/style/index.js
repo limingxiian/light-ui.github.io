@@ -6,4 +6,8 @@ import 'antd/lib/radio/style';
 import 'antd/lib/select/style';
 import 'antd/lib/space/style';
 import 'antd/lib/tree-select/style';
+import 'antd/lib/upload/style';
+import 'antd/lib/modal/style';
+import 'antd/lib/message/style';
+import 'antd/lib/button/style';
 import './index.less';
