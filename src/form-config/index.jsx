@@ -32,27 +32,6 @@ const FormConfig = (props) => {
                   message: 'Required property "type" missing.'
                 });
               }
-    
-              if ((json.properties[key]?.widget && ![
-                "input",
-                "number",
-                "textArea",
-                "radio",
-                "CustomCheckBox",
-                "select",
-                "treeSelect",
-                "cascade",
-                "imgUpload",
-                "fileUpload",
-                "datePicker",
-                "rangePicker",
-                "timePicker"
-              ].includes(json.properties[key].widget)) || !json.properties[key]?.widget) {
-                errors.push({
-                  path: [`${key}`],
-                  message: 'Required property "widget" missing.'
-                });
-              }
             });
           }
           console.log('errors:', errors);
